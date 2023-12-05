@@ -17,6 +17,7 @@ void Enemy::Draw()
 void Enemy::Update()
 {
     position.y += speed;
+    
 }
 
 bool Enemy::CheckCollision(Vector2 ballPosition, float ballRadius)
@@ -27,5 +28,5 @@ bool Enemy::CheckCollision(Vector2 ballPosition, float ballRadius)
 
 bool Enemy::IsOutOfScreen()
 {
-    return position.y>GetScreenHeight() + size.y;
+    return position.y > (GetScreenHeight()/2)+50;
 }

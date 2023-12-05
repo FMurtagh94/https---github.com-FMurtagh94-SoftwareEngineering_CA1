@@ -5,13 +5,13 @@
 #include <iostream>
 using namespace std;
 
-const int MAX_OBSTACLES = 10;
+const int MAX_OBSTACLES = 5;
 
 int main(void)
 {
     // Initialization
     //--------------------------------------------------------------------------------------
-    int screenWidth = 800;
+    int screenWidth = 1600;
     int screenHeight = 600;
 
     /*
@@ -24,9 +24,12 @@ int main(void)
     InitWindow(screenWidth, screenHeight, "Fiachra_Murtagh_Game");
 
     //Player player(playerTexture, sourceRec, {screenWidth/2, screenHeight-50}, 20, RAYWHITE); //Player
-    Player player({screenWidth/2, screenHeight-50}, 20, RAYWHITE); //Player
+    Player player({30, (screenHeight/2)+50}, 20, RAYWHITE); //Player
     //player.texture = LoadTexture("Resources/Textures/scarfy.png");
     Enemy enemy[MAX_OBSTACLES]; //Test Enemy
+
+    
+    
 
     for(int i = 0; i<MAX_OBSTACLES; ++i)
     {
@@ -46,26 +49,35 @@ int main(void)
             if(IsKeyDown(KEY_RIGHT)&& player.GetPosition().x< screenWidth - player.GetRadius())
             player.Move({5,0});
 
-            if(IsKeyDown(KEY_LEFT)&& player.GetPosition().x< screenWidth - player.GetRadius())
+            if(IsKeyDown(KEY_LEFT)&& player.GetPosition().x<= screenWidth - player.GetRadius())
             player.Move({-5,0});
         }
         for(int i= 0; i< MAX_OBSTACLES; ++i)
         {
-           if(enemy[i].IsOutOfScreen())
+           /*if(enemy[i].IsOutOfScreen())
            {
                 float width = GetRandomValue(50,200);
                 enemy[i] = Enemy({(float)GetRandomValue(0,screenWidth - (int)width), -20.0f},
                 {width, 20.0f}, RED, 4.0f);
-            }
+           }*/
+           if(enemy[i].IsOutOfScreen())
+           {
+            enemy[i] = Enemy({(float)(screenWidth - 50), -20.0f},
+                {50, 20.0f}, RED, 4.0f);
+           }
+
             enemy[i].Update();
 
-            if(enemy[5].CheckCollision(player.GetPosition(), player.GetRadius()))
+            if(enemy[i].CheckCollision(player.GetPosition(), player.GetRadius()))
             {
                 gameOver = true;
             }
+            if(!gameOver)
+            {
             score++;
+            }
         }
-
+        
         // Update
         //----------------------------------------------------------------------------------
         // TODO: Update your variables here
@@ -75,13 +87,14 @@ int main(void)
         //----------------------------------------------------------------------------------
         BeginDrawing();
 
-            ClearBackground(BLACK);
+            ClearBackground(BLUE);
             player.Draw();
             for(int i = 0; i<MAX_OBSTACLES; ++i)
             {
-                enemy[5].Draw();
+                enemy[i].Draw();
             }
-
+            //Ground
+            DrawRectangle(0, (((screenHeight/2)+50)+player.GetRadius()), screenWidth, (screenHeight/2)+50, RED);
             DrawText(TextFormat("Score: %i", score), 10,10,20, RAYWHITE);
 
             if(gameOver)
