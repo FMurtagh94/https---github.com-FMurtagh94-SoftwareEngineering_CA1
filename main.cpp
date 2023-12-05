@@ -14,10 +14,18 @@ int main(void)
     int screenWidth = 800;
     int screenHeight = 600;
 
+    /*
+    //Set Texture for Player
+    Texture2D playerTexture = LoadTexture("Resources/Textures/scarfy.png");
+    //Setting Player Textyre Height
+    Rectangle sourceRec = (Rectangle){0.0f, 0.0f, (float)(playerTexture.width)/6, (float)(playerTexture.height)};
+    */
+    
     InitWindow(screenWidth, screenHeight, "Fiachra_Murtagh_Game");
 
+    //Player player(playerTexture, sourceRec, {screenWidth/2, screenHeight-50}, 20, RAYWHITE); //Player
     Player player({screenWidth/2, screenHeight-50}, 20, RAYWHITE); //Player
-
+    //player.texture = LoadTexture("Resources/Textures/scarfy.png");
     Enemy enemy[MAX_OBSTACLES]; //Test Enemy
 
     for(int i = 0; i<MAX_OBSTACLES; ++i)
