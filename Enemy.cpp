@@ -14,10 +14,10 @@ void Enemy::Draw()
     DrawRectangleV(position, size, color);
 }
 
-void Enemy::Update()
+void Enemy::Update(float dir)
 {
+    speed = speed*dir;
     position.y += speed;
-    
 }
 
 bool Enemy::CheckCollision(Vector2 playerPosition, float playerRadius)
@@ -29,4 +29,9 @@ bool Enemy::CheckCollision(Vector2 playerPosition, float playerRadius)
 bool Enemy::IsOutOfScreen()
 {
     return position.y > (GetScreenHeight()/2)+50;
+}
+
+float Enemy::GetYPosition()
+{
+    return position.y;
 }

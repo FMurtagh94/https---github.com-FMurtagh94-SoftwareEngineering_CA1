@@ -15,7 +15,8 @@ int main(void)
     int screenHeight = 800;
     int score = 0;
     bool gameOver = false; 
-
+    bool enemyDir;
+    int changeDir;
     /*
     //Set Texture for Player
     Texture2D playerTexture = LoadTexture("Resources/Textures/scarfy.png");
@@ -29,7 +30,7 @@ int main(void)
     Player player({30, (screenHeight/2)+50}, 20, RAYWHITE); //Player
     //player.texture = LoadTexture("Resources/Textures/scarfy.png");
     //Enemy enemy[MAX_OBSTACLES]; //Test Enemy
-    Enemy enemy1({(float)100, 100}, {50.0f, 20.0f}, WHITE, 4.0f); //Enemy
+    Enemy enemy1({(float)200, 50}, {50.0f, 50.0f}, WHITE, 5.0f); //Enemy
 
     
     
@@ -95,7 +96,7 @@ int main(void)
 
             ClearBackground(BLUE);
             player.Draw();
-            enemy1.Draw();
+            
             /*for(int i = 0; i<MAX_OBSTACLES; ++i)
             {
                 enemy[i].Draw();
@@ -103,12 +104,33 @@ int main(void)
             //Ground
             DrawRectangle(0, (((screenHeight/2)+50)+player.GetRadius()), screenWidth, (screenHeight/2)+50, RED);
             DrawText(TextFormat("Score: %i", score), 10,10,20, RAYWHITE);
-
+            enemy1.Draw();
             if(gameOver)
             {
                 DrawText("GAME OVER", screenWidth/2 -60, screenHeight/2,20, RED);
             }
 
+
+            //Trying to get the enemy to change direction
+            if(enemy1.GetYPosition() == 50)
+            {
+                enemyDir = true;
+            }
+            else if(enemy1.GetYPosition() == 300)
+            {
+                enemyDir = false;
+            }
+
+            if(enemyDir)
+            {
+                changeDir = 1;
+            }
+            else
+            {
+                changeDir = -1;
+            }
+
+            enemy1.Update(changeDir);
 
 
         EndDrawing();

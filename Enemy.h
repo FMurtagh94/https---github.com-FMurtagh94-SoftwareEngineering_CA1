@@ -17,11 +17,13 @@ class Enemy
 
     void Draw();
 
-    void Update();
+    void Update(float dir);
 
     bool CheckCollision(Vector2 ballPosition, float ballRadius);
 
-    bool IsOutOfScreen(); 
+    bool IsOutOfScreen();
+
+    float GetYPosition();
 };
 
 #endif
