@@ -11,8 +11,10 @@ int main(void)
 {
     // Initialization
     //--------------------------------------------------------------------------------------
-    int screenWidth = 1600;
-    int screenHeight = 600;
+    int screenWidth = 1800;
+    int screenHeight = 800;
+    int score = 0;
+    bool gameOver = false; 
 
     /*
     //Set Texture for Player
@@ -26,20 +28,22 @@ int main(void)
     //Player player(playerTexture, sourceRec, {screenWidth/2, screenHeight-50}, 20, RAYWHITE); //Player
     Player player({30, (screenHeight/2)+50}, 20, RAYWHITE); //Player
     //player.texture = LoadTexture("Resources/Textures/scarfy.png");
-    Enemy enemy[MAX_OBSTACLES]; //Test Enemy
+    //Enemy enemy[MAX_OBSTACLES]; //Test Enemy
+    Enemy enemy1({(float)100, 100}, {50.0f, 20.0f}, WHITE, 4.0f); //Enemy
 
     
     
-
+    /* Temp Blocking Enemy Code*/
+    /*
     for(int i = 0; i<MAX_OBSTACLES; ++i)
     {
         float width = GetRandomValue(50,200);
-        enemy[i] = Enemy({(float)GetRandomValue(0,screenWidth-(int)width), (float)(-20.0f-i*60)}, {width, 20.f}, RED, 4.0f);
+        enemy[i] = Enemy({(float)GetRandomValue(0,screenWidth-(int)width), (float)(-20.0f-i*60)}, {width, 20.f}, GREEN, 4.0f);
     }
+    */
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
-    int score = 0;
-    bool gameOver = false; 
+    
 
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
@@ -52,6 +56,8 @@ int main(void)
             if(IsKeyDown(KEY_LEFT)&& player.GetPosition().x<= screenWidth - player.GetRadius())
             player.Move({-5,0});
         }
+        /*Enemy Stuff*/
+        /*
         for(int i= 0; i< MAX_OBSTACLES; ++i)
         {
            /*if(enemy[i].IsOutOfScreen())
@@ -59,7 +65,7 @@ int main(void)
                 float width = GetRandomValue(50,200);
                 enemy[i] = Enemy({(float)GetRandomValue(0,screenWidth - (int)width), -20.0f},
                 {width, 20.0f}, RED, 4.0f);
-           }*/
+           } //End to be blocked
            if(enemy[i].IsOutOfScreen())
            {
             enemy[i] = Enemy({(float)(screenWidth - 50), -20.0f},
@@ -74,9 +80,9 @@ int main(void)
             }
             if(!gameOver)
             {
-            score++;
+                score++;
             }
-        }
+        }*/
         
         // Update
         //----------------------------------------------------------------------------------
@@ -89,10 +95,11 @@ int main(void)
 
             ClearBackground(BLUE);
             player.Draw();
-            for(int i = 0; i<MAX_OBSTACLES; ++i)
+            enemy1.Draw();
+            /*for(int i = 0; i<MAX_OBSTACLES; ++i)
             {
                 enemy[i].Draw();
-            }
+            }*/
             //Ground
             DrawRectangle(0, (((screenHeight/2)+50)+player.GetRadius()), screenWidth, (screenHeight/2)+50, RED);
             DrawText(TextFormat("Score: %i", score), 10,10,20, RAYWHITE);

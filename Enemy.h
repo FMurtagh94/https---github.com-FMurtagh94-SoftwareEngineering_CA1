@@ -13,7 +13,7 @@ class Enemy
 
     public:
     Enemy(Vector2 pos, Vector2 sz, Color c, float s);
-    Enemy();
+    //Enemy();
 
     void Draw();
 

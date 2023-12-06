@@ -7,7 +7,7 @@ Enemy::Enemy(Vector2 pos, Vector2 sz, Color c, float s)
     color(c),
     speed(s){}
 
-Enemy::Enemy(): position ({0,0}),size({0,0}), color(BLANK), speed(0.0f) {}
+//Enemy::Enemy(): position ({0,0}),size({0,0}), color(BLANK), speed(0.0f) {}
 
 void Enemy::Draw()
 {
@@ -20,10 +20,10 @@ void Enemy::Update()
     
 }
 
-bool Enemy::CheckCollision(Vector2 ballPosition, float ballRadius)
+bool Enemy::CheckCollision(Vector2 playerPosition, float playerRadius)
 {
     Rectangle obstacleRect = {position.x, position.y, size.x, size.y};
-    return CheckCollisionCircleRec(ballPosition, ballRadius, obstacleRect);
+    return CheckCollisionCircleRec(playerPosition, playerRadius, obstacleRect);
 }
 
 bool Enemy::IsOutOfScreen()
