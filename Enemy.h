@@ -10,14 +10,15 @@ class Enemy
     Vector2 size;
     Color color;
     float speed;
+    float direction;
 
     public:
-    Enemy(Vector2 pos, Vector2 sz, Color c, float s);
+    Enemy(Vector2 pos, Vector2 sz, Color c, float s, float d);
     //Enemy();
 
     void Draw();
 
-    void Update(float dir);
+    void Update();
 
     bool CheckCollision(Vector2 ballPosition, float ballRadius);
 

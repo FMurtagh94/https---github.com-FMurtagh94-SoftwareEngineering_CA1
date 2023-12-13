@@ -15,8 +15,10 @@ int main(void)
     int screenHeight = 800;
     int score = 0;
     bool gameOver = false; 
-    bool enemyDir;
-    int changeDir;
+    bool enemyDir = false;
+    float changeDir;
+    bool getDir;
+    float getY; 
     /*
     //Set Texture for Player
     Texture2D playerTexture = LoadTexture("Resources/Textures/scarfy.png");
@@ -30,7 +32,7 @@ int main(void)
     Player player({30, (screenHeight/2)+50}, 20, RAYWHITE); //Player
     //player.texture = LoadTexture("Resources/Textures/scarfy.png");
     //Enemy enemy[MAX_OBSTACLES]; //Test Enemy
-    Enemy enemy1({(float)200, 50}, {50.0f, 50.0f}, WHITE, 5.0f); //Enemy
+    Enemy enemy1({(float)200, 50}, {50.0f, 51.0f}, WHITE, 5.0f, 0); //Enemy
 
     
     
@@ -84,6 +86,8 @@ int main(void)
                 score++;
             }
         }*/
+
+        
         
         // Update
         //----------------------------------------------------------------------------------
@@ -112,25 +116,34 @@ int main(void)
 
 
             //Trying to get the enemy to change direction
-            if(enemy1.GetYPosition() == 50)
-            {
-                enemyDir = true;
-            }
-            else if(enemy1.GetYPosition() == 300)
-            {
-                enemyDir = false;
-            }
-
-            if(enemyDir)
+            /*if(enemy1.GetYPosition() <= 50) //Check & change Enemy Y Position
             {
                 changeDir = 1;
             }
-            else
+            if(enemy1.GetYPosition() >= 300)
             {
                 changeDir = -1;
-            }
+            }*/
 
-            enemy1.Update(changeDir);
+            getY = enemy1.GetYPosition();
+            
+
+            
+            
+
+            //enemy1.GetYPosition();
+            enemy1.Update();
+
+            /*if(enemyDir == true) //Change the direction dependng on Y position
+            {
+                changeDir = 1;
+            }
+            else if(enemyDir == false)
+            {
+                changeDir = -1;
+            }*/
+
+            
 
 
         EndDrawing();
