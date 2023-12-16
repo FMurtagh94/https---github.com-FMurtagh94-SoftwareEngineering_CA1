@@ -8,12 +8,12 @@ class Enemy
     private:
     Vector2 position;
     Vector2 size;
-    Color color;
     float speed;
+    Color color;
     float direction;
 
     public:
-    Enemy(Vector2 pos, Vector2 sz, Color c, float s, float d);
+    Enemy(Vector2 pos, Vector2 sz, float s, Color c, float d);
     //Enemy();
 
     void Draw();
@@ -25,6 +25,10 @@ class Enemy
     bool IsOutOfScreen();
 
     float GetYPosition();
+
+    Color SetColor();
+
+    float SetSpeed();
 };
 
 #endif

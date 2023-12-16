@@ -14,7 +14,6 @@ int main(void)
     //Texture2D background = LoadTexture("Resources/Textures/cyberpunk_street_background.png");
     int screenWidth = 1800;
     int screenHeight = 800;
-    int score = 0;
     int lives = 3;
     bool gameOver = false; 
     bool enemyDir = false;
@@ -36,15 +35,15 @@ int main(void)
     Player player({30, (screenHeight/2)+50}, 20, RAYWHITE); //Player
     //player.texture = LoadTexture("Resources/Textures/scarfy.png");
     //Enemy enemy[MAX_OBSTACLES]; //Test Enemy
-    Enemy enemy1({(float)150, 50}, {50.0f, 50.0f}, WHITE, 5.0f, 0); //Enemy
-    Enemy enemy2({(float)300, 50}, {50.0f, 50.0f}, GREEN, 7.0f, 0);
-    Enemy enemy3({(float)350, 50}, {50.0f, 50.0f}, PURPLE, 9.0f, 0);
+    Enemy enemy1({(float)150, 50}, {50.0f, 50.0f}, enemy1.SetSpeed(), enemy1.SetColor(), 0); //Enemy
+    Enemy enemy2({(float)300, 50}, {50.0f, 50.0f}, 7.0f, GREEN, 0);
+    Enemy enemy3({(float)350, 50}, {50.0f, 50.0f}, 9.0f, PURPLE, 0);
 
-    Enemy enemy4({(float)450, 50}, {50.0f, 50.0f}, WHITE, 5.0f, 0);
-    Enemy enemy5({(float)500, 100}, {50.0f, 50.0f}, WHITE, 7.0f, 0);
-    Enemy enemy6({(float)550, 150}, {50.0f, 50.0f}, WHITE, 9.0f, 0);
-    Enemy enemy7({(float)600, 100}, {50.0f, 50.0f}, WHITE, 11.0f, 0);
-    Enemy enemy8({(float)650, 50}, {50.0f, 50.0f}, WHITE, 13.0f, 0);
+    Enemy enemy4({(float)450, 50}, {50.0f, 50.0f}, 5.0f, WHITE, 0);
+    Enemy enemy5({(float)500, 100}, {50.0f, 50.0f}, 7.0f, WHITE, 0);
+    Enemy enemy6({(float)550, 150}, {50.0f, 50.0f}, 9.0f, WHITE, 0);
+    Enemy enemy7({(float)600, 100}, {50.0f, 50.0f}, 11.0f, WHITE, 0);
+    Enemy enemy8({(float)650, 50}, {50.0f, 50.0f}, 13.0f, WHITE, 0);
     
     
     /* Temp Blocking Enemy Code*/
@@ -98,10 +97,6 @@ int main(void)
                     gameOver = true;
                 }
                 player.Reset(); //When player dies, this resets them to the beginning
-            }
-            if(!gameOver)
-            {
-                score++;
             }
         
     
