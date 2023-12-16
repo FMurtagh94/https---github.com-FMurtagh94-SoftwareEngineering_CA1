@@ -17,7 +17,7 @@ void Enemy::Draw()
 
 void Enemy::Update()
 {
-    if(position.y == 45 || position.y == 500) //Setting perimeter of the enemy
+    if(position.y <= 45 || position.y >= 425) //Setting perimeter of the enemy
     {
         speed *= -1.0f;
     }

@@ -32,3 +32,8 @@ float Player::GetRadius() const
 {
     return radius;
 }
+
+void Player::Reset()
+{
+    position.x = 30;
+}

@@ -22,7 +22,9 @@ class Player
 
     Vector2 GetPosition() const;
 
-    float GetRadius() const; 
+    float GetRadius() const;
+
+    void Reset(); 
 };
 
 #endif
