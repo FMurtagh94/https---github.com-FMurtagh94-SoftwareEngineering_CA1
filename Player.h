@@ -6,16 +6,13 @@
 class Player
 {
     private:
-    //Texture2D texture;
-    //Rectangle sourceRec;
     Vector2 position;
     float radius;
     Color color;
 
     public:
-    //Player(Texture2D text, Rectangle sourceRec, Vector2 pos, float r, Color c);
-    Player(Vector2 pos, float r, Color c);
 
+    Player(Vector2 pos, float r, Color c);
     void Draw();
 
     void Move(Vector2 offset);
@@ -26,7 +23,9 @@ class Player
 
     void Reset();
 
-    Color ChangeColour(int lives); 
+    Color ChangeColour(int lives);
+
+    bool Finish(int finishLineX);
 };
 
 #endif

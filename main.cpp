@@ -1,6 +1,5 @@
 #include "raylib.h"
 #include "Player.h"
-//#include "Obstacle.h"
 #include "Enemy.h"
 #include <iostream>
 using namespace std;
@@ -11,16 +10,12 @@ int main(void)
 {
     // Initialization
     //--------------------------------------------------------------------------------------
-    //Texture2D background = LoadTexture("Resources/Textures/cyberpunk_street_background.png");
     int screenWidth = 1800;
     int screenHeight = 800;
     int lives = 3;
-    bool gameOver = false; 
-    bool enemyDir = false;
-    Color playerColor = GREEN;
-    float changeDir;
-    bool getDir;
-    float getY; 
+    bool gameOver = false;
+    bool wonGame = false;
+    int finishLineX = screenWidth - 300;
     /*
     //Set Texture for Player
     Texture2D playerTexture = LoadTexture("Resources/Textures/scarfy.png");
@@ -30,39 +25,43 @@ int main(void)
     
     InitWindow(screenWidth, screenHeight, "Fiachra_Murtagh_Game");
 
+    //Setting Textures
     Texture2D background = LoadTexture("Resources/Textures/cyberpunk_street_background.png");
-    background.width = background.width*4;
+    background.width = background.width*(screenWidth/background.width)+400;
     background.height = background.height*3;
+
+    Texture2D finishLine = LoadTexture("Resources/Textures/finishLine.png");
+
+    Texture2D winnerScreen = LoadTexture("Resources/Textures/winnerScreen.png");
+    winnerScreen.height=screenHeight;
+    winnerScreen.width=screenWidth;
+
+    Texture2D gameOverScr = LoadTexture("Resources/Textures/gameOver.png");
+    gameOverScr.height=screenHeight;
+    gameOverScr.width=screenWidth;
 
     InitAudioDevice();
     Sound sound = LoadSound("Resources/Sounds/sound.wav");
 
+    //Texture2D playerT = LoadTexture("Resources/Textures/scarfy.png");
+
     int volume = 50;
     SetSoundVolume(sound, volume/100.0f);
 
-    //Player player(playerTexture, sourceRec, {screenWidth/2, screenHeight-50}, 20, RAYWHITE); //Player
-    Player player({30, (screenHeight/2)+50}, 20, player.ChangeColour(lives)); //Player
-    //player.texture = LoadTexture("Resources/Textures/scarfy.png");
-    //Enemy enemy[MAX_OBSTACLES]; //Test Enemy
-    Enemy enemy1({(float)150, 50}, {50.0f, 50.0f}, enemy1.SetSpeed(), enemy1.SetColor(), 0); //Enemy
-    Enemy enemy2({(float)300, 50}, {50.0f, 50.0f}, 7.0f, GREEN, 0);
-    Enemy enemy3({(float)350, 50}, {50.0f, 50.0f}, 9.0f, PURPLE, 0);
+    //Setting Player Details
+    Player player({30, (screenHeight/2)+50}, 20, player.ChangeColour(lives));
 
-    Enemy enemy4({(float)450, 50}, {50.0f, 50.0f}, 5.0f, WHITE, 0);
-    Enemy enemy5({(float)500, 100}, {50.0f, 50.0f}, 7.0f, WHITE, 0);
-    Enemy enemy6({(float)550, 150}, {50.0f, 50.0f}, 9.0f, WHITE, 0);
-    Enemy enemy7({(float)600, 100}, {50.0f, 50.0f}, 11.0f, WHITE, 0);
-    Enemy enemy8({(float)650, 50}, {50.0f, 50.0f}, 13.0f, WHITE, 0);
-    
-    
-    /* Temp Blocking Enemy Code*/
-    /*
-    for(int i = 0; i<MAX_OBSTACLES; ++i)
-    {
-        float width = GetRandomValue(50,200);
-        enemy[i] = Enemy({(float)GetRandomValue(0,screenWidth-(int)width), (float)(-20.0f-i*60)}, {width, 20.f}, GREEN, 4.0f);
-    }
-    */
+    //Setting Enemy Details
+    Enemy enemy1({(float)150, 50}, {50.0f, 50.0f}, 5.0f, enemy1.SetColor(5.0f), 0);
+    Enemy enemy2({(float)300, 50}, {50.0f, 50.0f}, 7.0f, enemy2.SetColor(7.0f), 0);
+    Enemy enemy3({(float)350, 50}, {50.0f, 50.0f}, 9.0f, enemy3.SetColor(9.0f), 0);
+    Enemy enemy4({(float)500, 50}, {50.0f, 50.0f}, 5.0f, enemy4.SetColor(5.0f), 0);
+    Enemy enemy5({(float)550, 150}, {150.0f, 50.0f}, 9.0f, enemy5.SetColor(9.0f), 0);
+    Enemy enemy6({(float)700, 50}, {50.0f, 50.0f}, 5.0f, enemy6.SetColor(5.0f), 0);
+    Enemy enemy7({(float)900, 50}, {150.0f, 50.0f}, 5.0f, enemy7.SetColor(9.0f), 0);
+    Enemy enemy8({(float)1050, 50}, {150.0f, 50.0f}, 7.0f, enemy8.SetColor(7.0f), 0);
+    Enemy enemy9({(float)1300, 50}, {100.0f, 50.0f}, 9.0f, enemy9.SetColor(9.0f), 0);
+
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
     
@@ -70,7 +69,7 @@ int main(void)
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
-        if(!gameOver)
+        if(!gameOver && !wonGame)
         {
             if(IsKeyDown(KEY_RIGHT)&& player.GetPosition().x < screenWidth - player.GetRadius())
             player.Move({5,0});
@@ -78,109 +77,95 @@ int main(void)
             if(IsKeyDown(KEY_LEFT)&& player.GetPosition().x <= screenWidth - player.GetRadius())
             player.Move({-5,0});
         }
-        /*Enemy Stuff*/
-        /*
-        for(int i= 0; i< MAX_OBSTACLES; ++i)
-        {
-           /*if(enemy[i].IsOutOfScreen())
-           {
-                float width = GetRandomValue(50,200);
-                enemy[i] = Enemy({(float)GetRandomValue(0,screenWidth - (int)width), -20.0f},
-                {width, 20.0f}, RED, 4.0f);
-           } //End to be blocked
-           if(enemy[i].IsOutOfScreen())
-           {
-            enemy[i] = Enemy({(float)(screenWidth - 50), -20.0f},
-                {50, 20.0f}, RED, 4.0f);
-           }
-            
-            enemy[i].Update();*/
 
-            if(enemy1.CheckCollision(player.GetPosition(), player.GetRadius())
-            || enemy2.CheckCollision(player.GetPosition(), player.GetRadius())
-            || enemy3.CheckCollision(player.GetPosition(), player.GetRadius())
-            || enemy4.CheckCollision(player.GetPosition(), player.GetRadius())
-            || enemy5.CheckCollision(player.GetPosition(), player.GetRadius())
-            || enemy6.CheckCollision(player.GetPosition(), player.GetRadius())
-            || enemy7.CheckCollision(player.GetPosition(), player.GetRadius())
-            || enemy8.CheckCollision(player.GetPosition(), player.GetRadius()))
+        if(enemy1.CheckCollision(player.GetPosition(), player.GetRadius())
+        || enemy2.CheckCollision(player.GetPosition(), player.GetRadius())
+        || enemy3.CheckCollision(player.GetPosition(), player.GetRadius())
+        || enemy4.CheckCollision(player.GetPosition(), player.GetRadius())
+        || enemy5.CheckCollision(player.GetPosition(), player.GetRadius())
+        || enemy6.CheckCollision(player.GetPosition(), player.GetRadius())
+        || enemy7.CheckCollision(player.GetPosition(), player.GetRadius())
+        || enemy8.CheckCollision(player.GetPosition(), player.GetRadius())
+        || enemy9.CheckCollision(player.GetPosition(), player.GetRadius()))
+        {
+            lives = lives - 1;
+            if(lives <= 0)
             {
-                lives = lives - 1;
-                if(lives <= 0)
-                {
-                    gameOver = true;
-                    PlaySound(sound); //Plays Sound When 'Game Over'
-                }
-                player.ChangeColour(lives);
-                player.Reset(); //When player dies, this resets them to the beginning
+                gameOver = true;
+                PlaySound(sound);//Plays Sound When 'Game Over'
             }
-        
+                
+            player.ChangeColour(lives); //Changes Player color based on lives remaining
+            player.Reset(); //When player dies, this resets them to the beginning
+        }
+
+        if(player.Finish(finishLineX) == true) //Checks for Player making to the End
+        {
+            wonGame = true;
+        }
     
         
         
         // Update
         //----------------------------------------------------------------------------------
         //----------------------------------------------------------------------------------
+        if(!gameOver && !wonGame)
+        {
+            enemy1.Update();
+            enemy2.Update();
+            enemy3.Update();
+
+            enemy4.Update();
+            enemy5.Update();
+            enemy6.Update();
+
+            enemy7.Update();
+            enemy8.Update();
+            enemy9.Update();
+        }
 
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();
 
-            ClearBackground(BLUE);
-            DrawTexture(background, 0, 0, WHITE);
-            //ClearBackground(WHITE); 
-
-			//DrawTexture(background, 0, 0, WHITE);
-            //DrawTextureEx(background, (Vector2){ background.width*2 + 0, 20 }, 0.0f, 2.0f, WHITE);
+        ClearBackground(BLUE);
+        DrawTexture(background, 0, 0, WHITE); //Draw Backgrounf Texture          
             
-            
-            player.Draw();
-            
-            /*for(int i = 0; i<MAX_OBSTACLES; ++i)
-            {
-                enemy[i].Draw();
-            }*/
-            //Ground
-            DrawRectangle(0, (((screenHeight/2)+50)+player.GetRadius()), screenWidth, (screenHeight/2)+50, RED);
-            DrawText(TextFormat("Lives: %i", lives), 10,10,50, player.ChangeColour(lives));
-            enemy1.Draw();
-            enemy2.Draw();
-            enemy3.Draw();
+        player.Draw(); //Draw Player Texture
+        
+        //Ground
+        DrawRectangle(0, (((screenHeight/2)+50)+player.GetRadius()), screenWidth, (screenHeight/2)+50, RED);
+        //Finish Line
+        DrawTexture(finishLine, screenWidth-300, (((screenHeight/2)+50)+player.GetRadius()), WHITE);
 
-            enemy4.Draw();
-            enemy5.Draw();
-            enemy6.Draw();
-            enemy7.Draw();
-            enemy8.Draw();
-            if(gameOver)
-            {
-                DrawText("GAME OVER", screenWidth/2 -550, screenHeight/2,200, BLACK);
-            }
+        //Prints HUD to show Lives
+        DrawText(TextFormat("Lives: %i", lives), 10,10,50, player.ChangeColour(lives));
+
+        //Draws Eneies onto Screen
+        enemy1.Draw();
+        enemy2.Draw();
+        enemy3.Draw();
+
+        enemy4.Draw();
+        enemy5.Draw();
+        enemy6.Draw();
+        
+        enemy7.Draw();
+        enemy8.Draw();
+        enemy9.Draw();
 
 
-            //Trying to get the enemy to change direction
-            /*if(enemy1.GetYPosition() <= 50) //Check & change Enemy Y Position
-            {
-                changeDir = 1;
-            }
-            if(enemy1.GetYPosition() >= 300)
-            {
-                changeDir = -1;
-            }*/
+        if(gameOver)
+        {
+            DrawTexture(gameOverScr, 0, 0, WHITE);
+        }
 
-            //enemy1.GetYPosition();
-            if(!gameOver)
-            {
-                enemy1.Update();
-                enemy2.Update();
-                enemy3.Update();
+        if(wonGame)
+        {
+            DrawTexture(winnerScreen, 0, 0, WHITE);
+        }
 
-                enemy4.Update();
-                enemy5.Update();
-                enemy6.Update();
-                enemy7.Update();
-                enemy8.Update();
-            }
+        
 
             /*if(enemyDir == true) //Change the direction dependng on Y position
             {

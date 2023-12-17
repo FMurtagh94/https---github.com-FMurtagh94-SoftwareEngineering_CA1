@@ -14,7 +14,6 @@ class Enemy
 
     public:
     Enemy(Vector2 pos, Vector2 sz, float s, Color c, float d);
-    //Enemy();
 
     void Draw();
 
@@ -22,13 +21,9 @@ class Enemy
 
     bool CheckCollision(Vector2 ballPosition, float ballRadius);
 
-    bool IsOutOfScreen();
+    Color SetColor(float nSpeed);
 
-    float GetYPosition();
-
-    Color SetColor();
-
-    float SetSpeed();
+    //float SetSpeed(); 
 };
 
 #endif

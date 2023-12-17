@@ -8,8 +8,6 @@ Enemy::Enemy(Vector2 pos, Vector2 sz, float s, Color c, float d)
     color(c),
     direction(d){}
 
-//Enemy::Enemy(): position ({0,0}),size({0,0}), color(BLANK), speed(0.0f) {}
-
 void Enemy::Draw()
 {
     DrawRectangleV(position, size, color);
@@ -30,27 +28,19 @@ bool Enemy::CheckCollision(Vector2 playerPosition, float playerRadius)
     return CheckCollisionCircleRec(playerPosition, playerRadius, obstacleRect);
 }
 
-bool Enemy::IsOutOfScreen()
-{
-    return position.y > (GetScreenHeight()/2)+50;
-}
 
-float Enemy::GetYPosition()
+Color Enemy::SetColor(float nSpeed) //Set Color Based on Speed
 {
-    return position.y;
-}
-
-Color Enemy::SetColor() //Set Color Based on Speed
-{
-    if(speed >= 5.0f)
+    int h = (int)nSpeed;
+    if(h == 5)
     {
         color = WHITE;
     }
-    else if(speed >= 7.0f)
+    else if(h == 7)
     {
         color = GREEN;
     }
-    else if(speed >= 9.0f)
+    else if(h == 9)
     {
         color = PURPLE;
     }
@@ -62,7 +52,7 @@ Color Enemy::SetColor() //Set Color Based on Speed
     return color;
 }
 
-float Enemy::SetSpeed() //Randomly Set Speed
+/*float Enemy::SetSpeed() //Randomly Set Speed
 {
    int a = GetRandomValue(0, 3);
    if(a == 0)
@@ -81,6 +71,6 @@ float Enemy::SetSpeed() //Randomly Set Speed
     {
         speed = 11.0f;
     }
-    
+
     return speed;
-}
+}*/

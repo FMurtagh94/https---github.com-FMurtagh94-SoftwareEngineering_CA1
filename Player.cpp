@@ -2,11 +2,9 @@
 #include <iostream>
 using namespace std;
 
-//Player::Player(Texture2D text, Rectangle sourceRec, Vector2 pos, float r, Color c)
+
 Player::Player(Vector2 pos, float r, Color c)
 :   
-    //texture(text),
-    //sourceRec(sourceRec),
     position(pos),
     radius(r),
     color(c){}
@@ -14,7 +12,6 @@ Player::Player(Vector2 pos, float r, Color c)
 void Player::Draw()
 {
     DrawCircleV(position,radius,color);
-    //DrawTextureRec(texture, sourceRec, position, WHITE);
 }
 
 void Player::Move(Vector2 offset)
@@ -40,17 +37,30 @@ void Player::Reset()
 
 Color Player::ChangeColour(int lives)
 {
-    if(lives == 3)
+    if(lives >= 3)
     {
         color = GREEN;
     }
     else if(lives == 2)
     {
-        color = ORANGE;
+        color = YELLOW;
     }
     else if(lives <= 1)
     {
         color = RED;
     }
     return color;
+}
+
+
+bool Player::Finish(int finishLineX)
+{
+    if(position.x >= finishLineX)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
