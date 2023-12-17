@@ -24,7 +24,9 @@ class Player
 
     float GetRadius() const;
 
-    void Reset(); 
+    void Reset();
+
+    Color ChangeColour(int lives); 
 };
 
 #endif

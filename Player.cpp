@@ -37,3 +37,20 @@ void Player::Reset()
 {
     position.x = 30;
 }
+
+Color Player::ChangeColour(int lives)
+{
+    if(lives == 3)
+    {
+        color = GREEN;
+    }
+    else if(lives == 2)
+    {
+        color = ORANGE;
+    }
+    else if(lives <= 1)
+    {
+        color = RED;
+    }
+    return color;
+}

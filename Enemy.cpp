@@ -42,15 +42,15 @@ float Enemy::GetYPosition()
 
 Color Enemy::SetColor() //Set Color Based on Speed
 {
-    if(speed >= 5.0f && speed < 7.0f)
+    if(speed >= 5.0f)
     {
         color = WHITE;
     }
-    else if(speed >= 7.0f && speed < 9.0f)
+    else if(speed >= 7.0f)
     {
         color = GREEN;
     }
-    else if(speed >= 9.0f && speed < 11.0f)
+    else if(speed >= 9.0f)
     {
         color = PURPLE;
     }

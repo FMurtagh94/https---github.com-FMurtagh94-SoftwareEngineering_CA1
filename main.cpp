@@ -17,6 +17,7 @@ int main(void)
     int lives = 3;
     bool gameOver = false; 
     bool enemyDir = false;
+    Color playerColor = GREEN;
     float changeDir;
     bool getDir;
     float getY; 
@@ -28,11 +29,19 @@ int main(void)
     */
     
     InitWindow(screenWidth, screenHeight, "Fiachra_Murtagh_Game");
+
     Texture2D background = LoadTexture("Resources/Textures/cyberpunk_street_background.png");
     background.width = background.width*4;
     background.height = background.height*3;
+
+    InitAudioDevice();
+    Sound sound = LoadSound("Resources/Sounds/sound.wav");
+
+    int volume = 50;
+    SetSoundVolume(sound, volume/100.0f);
+
     //Player player(playerTexture, sourceRec, {screenWidth/2, screenHeight-50}, 20, RAYWHITE); //Player
-    Player player({30, (screenHeight/2)+50}, 20, RAYWHITE); //Player
+    Player player({30, (screenHeight/2)+50}, 20, player.ChangeColour(lives)); //Player
     //player.texture = LoadTexture("Resources/Textures/scarfy.png");
     //Enemy enemy[MAX_OBSTACLES]; //Test Enemy
     Enemy enemy1({(float)150, 50}, {50.0f, 50.0f}, enemy1.SetSpeed(), enemy1.SetColor(), 0); //Enemy
@@ -63,10 +72,10 @@ int main(void)
     {
         if(!gameOver)
         {
-            if(IsKeyDown(KEY_RIGHT)&& player.GetPosition().x< screenWidth - player.GetRadius())
+            if(IsKeyDown(KEY_RIGHT)&& player.GetPosition().x < screenWidth - player.GetRadius())
             player.Move({5,0});
 
-            if(IsKeyDown(KEY_LEFT)&& player.GetPosition().x<= screenWidth - player.GetRadius())
+            if(IsKeyDown(KEY_LEFT)&& player.GetPosition().x <= screenWidth - player.GetRadius())
             player.Move({-5,0});
         }
         /*Enemy Stuff*/
@@ -84,18 +93,25 @@ int main(void)
             enemy[i] = Enemy({(float)(screenWidth - 50), -20.0f},
                 {50, 20.0f}, RED, 4.0f);
            }
-
+            
             enemy[i].Update();*/
 
             if(enemy1.CheckCollision(player.GetPosition(), player.GetRadius())
             || enemy2.CheckCollision(player.GetPosition(), player.GetRadius())
-            || enemy3.CheckCollision(player.GetPosition(), player.GetRadius()))
+            || enemy3.CheckCollision(player.GetPosition(), player.GetRadius())
+            || enemy4.CheckCollision(player.GetPosition(), player.GetRadius())
+            || enemy5.CheckCollision(player.GetPosition(), player.GetRadius())
+            || enemy6.CheckCollision(player.GetPosition(), player.GetRadius())
+            || enemy7.CheckCollision(player.GetPosition(), player.GetRadius())
+            || enemy8.CheckCollision(player.GetPosition(), player.GetRadius()))
             {
                 lives = lives - 1;
                 if(lives <= 0)
                 {
                     gameOver = true;
+                    PlaySound(sound); //Plays Sound When 'Game Over'
                 }
+                player.ChangeColour(lives);
                 player.Reset(); //When player dies, this resets them to the beginning
             }
         
@@ -118,7 +134,6 @@ int main(void)
             //DrawTextureEx(background, (Vector2){ background.width*2 + 0, 20 }, 0.0f, 2.0f, WHITE);
             
             
-            
             player.Draw();
             
             /*for(int i = 0; i<MAX_OBSTACLES; ++i)
@@ -127,7 +142,7 @@ int main(void)
             }*/
             //Ground
             DrawRectangle(0, (((screenHeight/2)+50)+player.GetRadius()), screenWidth, (screenHeight/2)+50, RED);
-            DrawText(TextFormat("Lives: %i", lives), 10,10,50, RED);
+            DrawText(TextFormat("Lives: %i", lives), 10,10,50, player.ChangeColour(lives));
             enemy1.Draw();
             enemy2.Draw();
             enemy3.Draw();
@@ -178,11 +193,12 @@ int main(void)
 
             
 
-
+        
         EndDrawing();
         //----------------------------------------------------------------------------------
     }
-
+    UnloadSound(sound);
+    CloseAudioDevice();
     // De-Initialization
     //--------------------------------------------------------------------------------------
     CloseWindow();        // Close window and OpenGL context
