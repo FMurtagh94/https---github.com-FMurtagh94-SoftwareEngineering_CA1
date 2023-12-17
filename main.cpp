@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-const int MAX_OBSTACLES = 5;
+//Student: Fiachra Murtagh, D00155450
 
 int main(void)
 {
@@ -52,15 +52,15 @@ int main(void)
     Player player({30, (screenHeight/2)+50}, 20, player.ChangeColour(lives));
 
     //Setting Enemy Details
-    Enemy enemy1({(float)150, 50}, {50.0f, 50.0f}, 5.0f, enemy1.SetColor(5.0f), 0);
-    Enemy enemy2({(float)300, 50}, {50.0f, 50.0f}, 7.0f, enemy2.SetColor(7.0f), 0);
-    Enemy enemy3({(float)350, 50}, {50.0f, 50.0f}, 9.0f, enemy3.SetColor(9.0f), 0);
-    Enemy enemy4({(float)500, 50}, {50.0f, 50.0f}, 5.0f, enemy4.SetColor(5.0f), 0);
-    Enemy enemy5({(float)550, 150}, {150.0f, 50.0f}, 9.0f, enemy5.SetColor(9.0f), 0);
-    Enemy enemy6({(float)700, 50}, {50.0f, 50.0f}, 5.0f, enemy6.SetColor(5.0f), 0);
-    Enemy enemy7({(float)900, 50}, {150.0f, 50.0f}, 5.0f, enemy7.SetColor(9.0f), 0);
-    Enemy enemy8({(float)1050, 50}, {150.0f, 50.0f}, 7.0f, enemy8.SetColor(7.0f), 0);
-    Enemy enemy9({(float)1300, 50}, {100.0f, 50.0f}, 9.0f, enemy9.SetColor(9.0f), 0);
+    Enemy enemy1({(float)150, 50}, {50.0f, 50.0f}, 5.0f, enemy1.SetColor(5.0f));
+    Enemy enemy2({(float)300, 50}, {50.0f, 50.0f}, 7.0f, enemy2.SetColor(7.0f));
+    Enemy enemy3({(float)350, 50}, {50.0f, 50.0f}, 9.0f, enemy3.SetColor(9.0f));
+    Enemy enemy4({(float)500, 50}, {50.0f, 50.0f}, 5.0f, enemy4.SetColor(5.0f));
+    Enemy enemy5({(float)550, 150}, {150.0f, 50.0f}, 9.0f, enemy5.SetColor(9.0f));
+    Enemy enemy6({(float)700, 50}, {50.0f, 50.0f}, 5.0f, enemy6.SetColor(5.0f));
+    Enemy enemy7({(float)900, 50}, {150.0f, 50.0f}, 5.0f, enemy7.SetColor(9.0f));
+    Enemy enemy8({(float)1050, 50}, {150.0f, 50.0f}, 7.0f, enemy8.SetColor(7.0f));
+    Enemy enemy9({(float)1300, 50}, {100.0f, 50.0f}, 9.0f, enemy9.SetColor(9.0f));
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------

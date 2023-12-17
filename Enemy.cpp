@@ -1,12 +1,11 @@
 #include "Enemy.h"
 
 
-Enemy::Enemy(Vector2 pos, Vector2 sz, float s, Color c, float d)
+Enemy::Enemy(Vector2 pos, Vector2 sz, float s, Color c)
 : position(pos),
     size(sz),
     speed(s),
-    color(c),
-    direction(d){}
+    color(c){}
 
 void Enemy::Draw()
 {

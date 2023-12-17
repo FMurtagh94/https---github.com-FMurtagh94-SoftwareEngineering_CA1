@@ -10,10 +10,9 @@ class Enemy
     Vector2 size;
     float speed;
     Color color;
-    float direction;
 
     public:
-    Enemy(Vector2 pos, Vector2 sz, float s, Color c, float d);
+    Enemy(Vector2 pos, Vector2 sz, float s, Color c);
 
     void Draw();
 
